@@ -92,13 +92,6 @@ SurfaceX is for **defensive and authorized use only**. It follows these strict o
 
 ---
 
-## 📦 Repository Hygiene
-- Sensitive files (like `.env`) are excluded via `.gitignore`.
-- Findings and samples used for testing are sanitized of PII.
-- **No malware binaries** or malicious payloads are stored in this repository.
-
----
-
 ## 📄 Disclaimer
 This project is provided **"as is"** without warranty of any kind. The authors and maintainers are not responsible for any misuse, unintended consequences, or damages resulting from the use of this tool. SurfaceX is intended for **defensive cybersecurity purposes only**. Always ensure you have explicit authorization before assessing any target infrastructure.
 
@@ -112,7 +105,7 @@ Features, detection logic, and risk heuristics evolve as the global threat lands
 
 ## 🧭 Support
 - **Issues**: Use [GitHub Issues](https://github.com/SuperMag99/SurfaceX/issues).
-- **Security**: Refer to `SECURITY.md`.
+- **Security:** Refer to [SECURITY.md](./SECURITY.md).
 
 ---
 
