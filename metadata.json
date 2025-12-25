@@ -1,0 +1,6 @@
+
+{
+  "name": "SurfaceX - Attack Surface Snapshot Tool",
+  "description": "A professional EASM (External Attack Surface Management) tool for rapid, passive-first exposure analysis and risk scoring.",
+  "requestFramePermissions": []
+}
