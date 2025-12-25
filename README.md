@@ -4,8 +4,8 @@
 
 > "Fast, explainable exposure visibility — not exploitation."
 
-![FootprintX Hero Screenshot](https://github.com/SuperMag99/SurfaceX/blob/main/screenshots/0.png)
-![FootprintX Hero Screenshot](https://github.com/SuperMag99/SurfaceX/blob/main/screenshots/2.png)
+![FootprintX Hero Screenshot](https://github.com/SuperMag99/SurfaceX/blob/main/Screenshots/0.png)
+![FootprintX Hero Screenshot](https://github.com/SuperMag99/SurfaceX/blob/main/Screenshots/2.png)
 ---
 
 ## 🎯 Project Overview
