@@ -116,9 +116,17 @@ If SurfaceX helps your SOC team or security research, consider giving the reposi
 
 ---
 
-## 📄 License
-Distributed under the **MIT License**.  
-Copyright (c) 2025 SurfaceX
+## License Summary
+
+This project is licensed under a **Non-Commercial Attribution License**. Key points:
+
+1. ✅ **Free to use for personal, educational, and research purposes.**
+2. ✅ **Any modification or derivative work must credit to the author.
+3. ❌ **Commercial use, sale, licensing, or any use intended to generate revenue is strictly prohibited without prior written permission.**
+4. ⚠️ **No warranty**: Use at your own risk.
+5. ⚖️ **Legal protection**: Unauthorized commercial use or failure to credit the author may result in legal action.
+
+For full license details, see the `LICENSE` file. [LICENSE](./LICENSE).
 
 ---
 
