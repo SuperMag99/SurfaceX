@@ -109,6 +109,12 @@ Features, detection logic, and risk heuristics evolve as the global threat lands
 
 ---
 
+## 🧭 Security and Vulnerabilities
+
+- **Security:** Refer to [SECURITY.md](./SECURITY.md).
+
+---
+
 ## ⭐ Support the Project
 If SurfaceX helps your SOC team or security research, consider giving the repository a ⭐.
 
