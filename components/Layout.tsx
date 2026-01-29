@@ -70,9 +70,6 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, setCurrentView }
               </p>
               <div className="flex gap-4">
                 <span className="text-[10px] font-black px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-slate-300 uppercase tracking-widest">
-                  MIT License
-                </span>
-                <span className="text-[10px] font-black px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-slate-300 uppercase tracking-widest">
                   v1.2.0-stable
                 </span>
               </div>
