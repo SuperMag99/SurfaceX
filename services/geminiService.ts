@@ -111,24 +111,7 @@ const reportSchema = {
 };
 
 export const analyzeDomain = async (domain: string, depth: string = 'balanced'): Promise<ReconReport> => {
-  // Defensive API key retrieval
-  let apiKey = (window as any).SURFACEX_API_KEY;
-  
-  if (!apiKey) {
-    try {
-      if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
-        apiKey = process.env.API_KEY;
-      }
-    } catch (e) {
-      // process.env might not be defined in pure browser environments
-    }
-  }
-  
-  if (!apiKey) {
-    throw new Error("API Key Missing. Configure your .env or set it in the console: window.SURFACEX_API_KEY = 'your_key'");
-  }
-
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const isDeep = depth === 'deep';
   const isRapid = depth === 'rapid';
   
@@ -174,7 +157,7 @@ export const analyzeDomain = async (domain: string, depth: string = 'balanced'):
   } catch (error: any) {
     console.error("SurfaceX Engine Error:", error);
     if (error.message?.includes("API_KEY") || error.message?.includes("unauthorized") || error.message?.includes("API key")) {
-      throw new Error("Invalid or missing API Key. Check your configuration or Console settings.");
+      throw new Error("Invalid or missing API Key. Check your configuration.");
     }
     throw error;
   }
