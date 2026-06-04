@@ -172,8 +172,4 @@ Include realistic exploitation scenarios in threatActorContext.
   }
 
   return JSON.parse(response.text) as ReconReport;
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 4602b36fb7a834cfe3aeafae3625828e92a0b08b
