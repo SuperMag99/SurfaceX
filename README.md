@@ -4,8 +4,6 @@
 
 > "Fast, explainable exposure visibility — not exploitation."
 
-![FootprintX Hero Screenshot](https://github.com/SuperMag99/SurfaceX/blob/main/screenshot/1.png)
-![FootprintX Hero Screenshot](https://github.com/SuperMag99/SurfaceX/blob/main/screenshot/2.png)
 ---
 
 ## 🎯 Project Overview
@@ -20,7 +18,7 @@ To get SurfaceX running on your local machine, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/SuperMag99/SurfaceX.git
+   git clone https://github.com/SuperMag99/surfacex.git
    cd surfacex
    ```
 
@@ -99,6 +97,11 @@ SurfaceX is for **defensive and authorized use only**. It follows these strict o
 
 ---
 
+## 🧠 Intellectual Property Notice
+All trademarks, platform names (e.g., VirusTotal, AbuseIPDB, Cloudflare, Google Gemini), and service names are the property of their respective owners. Their use in SurfaceX is for identification, integration, and educational purposes only.
+
+---
+
 ## 📄 Disclaimer
 This project is provided **"as is"** without warranty of any kind. The authors and maintainers are not responsible for any misuse, unintended consequences, or damages resulting from the use of this tool. SurfaceX is intended for **defensive cybersecurity purposes only**. Always ensure you have explicit authorization before assessing any target infrastructure.
 
@@ -111,7 +114,7 @@ Features, detection logic, and risk heuristics evolve as the global threat lands
 ---
 
 ## 🧭 Support
-- **Issues**: Use [GitHub Issues](https://github.com/SuperMag99/SurfaceX/issues).
+- **Issues**: Use [GitHub Issues](https://github.com/SuperMag99/surfacex/issues).
 - **Security**: Refer to `SECURITY.md`.
 
 ---
@@ -125,7 +128,7 @@ If SurfaceX helps your SOC team or security research, consider giving the reposi
 
 ## 📄 License
 Distributed under the **MIT License**.  
-Copyright (c) 2025 SurfaceX
+Copyright (c) 2025 PhishEyeX
 
 ---
 

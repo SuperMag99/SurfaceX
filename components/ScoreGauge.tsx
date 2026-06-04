@@ -19,6 +19,8 @@ const ScoreGauge: React.FC<ScoreGaugeProps> = ({ score }) => {
     return '#ef4444'; // Red
   };
 
+  const color = getColor(score);
+  
   const getLabel = (s: number) => {
     if (s < 20) return 'Low';
     if (s < 50) return 'Medium';
@@ -27,36 +29,41 @@ const ScoreGauge: React.FC<ScoreGaugeProps> = ({ score }) => {
   };
 
   return (
-    <div className="relative w-48 h-48 mx-auto flex items-center justify-center">
-      {/* Explicitly sized wrapper to prevent Recharts -1 width/height warning */}
-      <div style={{ width: 192, height: 192 }}>
+    <div className="relative w-full h-40 mx-auto flex items-center justify-center">
+      {/* Explicitly sized wrapper to prevent Recharts -1 width/height warning. Increased width to prevent cropping. */}
+      <div style={{ width: 220, height: 160 }} className="relative">
+        {/* Glow effect background */}
+        <div 
+          className="absolute inset-0 rounded-full blur-[20px] opacity-20"
+          style={{ backgroundColor: color }}
+        />
+        
         <ResponsiveContainer width="100%" height="100%">
-          <PieChart width={192} height={192}>
+          <PieChart>
             <Pie
               data={data}
               cx="50%"
               cy="50%"
               innerRadius={60}
-              outerRadius={80}
+              outerRadius={75}
               startAngle={180}
               endAngle={0}
               paddingAngle={0}
               dataKey="value"
               stroke="none"
-              animationBegin={0}
-              animationDuration={1000}
+              cornerRadius={5}
             >
-              <Cell fill={getColor(score)} />
+              <Cell fill={color} style={{ filter: `drop-shadow(0px 0px 6px ${color})` }} />
               <Cell fill="#1e293b" />
             </Pie>
           </PieChart>
         </ResponsiveContainer>
       </div>
       
-      <div className="absolute inset-0 flex flex-col items-center justify-center pt-8">
-        <span className="text-4xl font-bold text-white tracking-tight">{score}</span>
-        <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: getColor(score) }}>
-          {getLabel(score)} Exposure
+      <div className="absolute inset-0 flex flex-col items-center justify-center pt-6">
+        <span className="text-3xl font-black text-white tracking-tight drop-shadow-md">{score}</span>
+        <span className="text-[10px] font-bold uppercase tracking-widest mt-1" style={{ color: color }}>
+          {getLabel(score)}
         </span>
       </div>
     </div>
