@@ -10,7 +10,6 @@ import {
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, YAxis, AreaChart, Area } from 'recharts';
 import ScoreGauge from './ScoreGauge';
-import VideoGenerator from './VideoGenerator';
 import html2canvas from 'html2canvas';
 
 interface DashboardProps {
@@ -115,8 +114,7 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
         { id: 'overview', label: 'Overview', icon: <BarChart3 size={14} /> },
         { id: 'assets', label: 'Assets', icon: <Globe size={14} /> },
         { id: 'findings', label: 'Findings', icon: <Target size={14} /> },
-        { id: 'dns', label: 'Network', icon: <Server size={14} /> },
-        { id: 'video', label: 'Report Video', icon: <Video size={14} /> }
+        { id: 'dns', label: 'Network', icon: <Server size={14} /> }
       ].map(tab => (
         <button
           key={tab.id}
@@ -189,11 +187,6 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
              <div>
                <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-1">Assets</span>
                <span className="text-xl font-bold text-white">{report.subdomains.length} Nodes</span>
-             </div>
-             <div className="ml-auto flex items-end">
-                <button onClick={() => setActiveTab('video')} className="text-xs font-bold text-indigo-400 hover:text-white flex items-center gap-1 transition-colors">
-                  View Video <ArrowRight size={12} />
-                </button>
              </div>
           </div>
         </div>
@@ -466,7 +459,6 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
         {activeTab === 'assets' && renderAssets()}
         {activeTab === 'findings' && renderFindingsList()}
         {activeTab === 'dns' && renderDNS()}
-        {activeTab === 'video' && <VideoGenerator report={report} />}
       </div>
 
       {/* Modal - Remediation Blueprint */}
