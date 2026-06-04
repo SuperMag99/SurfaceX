@@ -16,9 +16,14 @@ const reportSchema = {
         initialAccess: { type: Type.NUMBER },
         lateralMovement: { type: Type.NUMBER },
         dataExposure: { type: Type.NUMBER },
-        brandReputation: { type: Type.NUMBER }
+        brandReputation: { type: Type.NUMBER },
       },
-      required: ["initialAccess", "lateralMovement", "dataExposure", "brandReputation"]
+      required: [
+        "initialAccess",
+        "lateralMovement",
+        "dataExposure",
+        "brandReputation",
+      ],
     },
 
     findings: {
@@ -37,7 +42,7 @@ const reportSchema = {
           affectedAsset: { type: Type.STRING },
           impact: { type: Type.STRING },
           recommendation: { type: Type.STRING },
-          threatActorContext: { type: Type.STRING }
+          threatActorContext: { type: Type.STRING },
         },
         required: [
           "id",
@@ -51,9 +56,9 @@ const reportSchema = {
           "affectedAsset",
           "impact",
           "recommendation",
-          "threatActorContext"
-        ]
-      }
+          "threatActorContext",
+        ],
+      },
     },
 
     subdomains: {
@@ -65,10 +70,11 @@ const reportSchema = {
           ip: { type: Type.STRING },
           category: { type: Type.STRING },
           ports: { type: Type.ARRAY, items: { type: Type.NUMBER } },
-          tags: { type: Type.ARRAY, items: { type: Type.STRING } }
+          tags: { type: Type.ARRAY, items: { type: Type.STRING } },
+          provider: { type: Type.STRING },
         },
-        required: ["name", "ip", "category", "ports", "tags"]
-      }
+        required: ["name", "ip", "category", "ports", "tags"],
+      },
     },
 
     attackPaths: {
@@ -80,10 +86,10 @@ const reportSchema = {
           name: { type: Type.STRING },
           steps: { type: Type.ARRAY, items: { type: Type.STRING } },
           riskLevel: { type: Type.STRING },
-          likelihood: { type: Type.STRING }
+          likelihood: { type: Type.STRING },
         },
-        required: ["id", "name", "steps", "riskLevel", "likelihood"]
-      }
+        required: ["id", "name", "steps", "riskLevel", "likelihood"],
+      },
     },
 
     dnsRecords: {
@@ -92,10 +98,10 @@ const reportSchema = {
         type: Type.OBJECT,
         properties: {
           type: { type: Type.STRING },
-          value: { type: Type.STRING }
+          value: { type: Type.STRING },
         },
-        required: ["type", "value"]
-      }
+        required: ["type", "value"],
+      },
     },
 
     techStack: { type: Type.ARRAY, items: { type: Type.STRING } },
@@ -107,11 +113,11 @@ const reportSchema = {
         properties: {
           name: { type: Type.STRING },
           present: { type: Type.BOOLEAN },
-          value: { type: Type.STRING }
+          value: { type: Type.STRING },
         },
-        required: ["name", "present"]
-      }
-    }
+        required: ["name", "present"],
+      },
+    },
   },
 
   required: [
@@ -125,8 +131,8 @@ const reportSchema = {
     "dimensions",
     "dnsRecords",
     "securityHeaders",
-    "techStack"
-  ]
+    "techStack",
+  ],
 };
 
 export const analyzeDomain = async (
@@ -134,8 +140,9 @@ export const analyzeDomain = async (
   depth: string = "balanced",
   apiKey?: string
 ): Promise<ReconReport> => {
+  // ✅ HARD FAIL if no API key (no hidden env fallback)
   if (!apiKey) {
-    throw new Error("Missing API key. Please provide it from the UI.");
+    throw new Error("Missing API key. Please provide it in the UI.");
   }
 
   const ai = new GoogleGenAI({ apiKey });
@@ -144,32 +151,45 @@ export const analyzeDomain = async (
   const isRapid = depth === "rapid";
   const maxFindings = isDeep ? 6 : isRapid ? 3 : 5;
 
-  const sessionSeed = Math.random().toString(36).slice(2);
+  const sessionSeed = Math.random().toString(36).substring(7);
 
   const prompt = `
 Act as a Senior Attack Surface Engineer.
 
 Target: ${domain}
-Session: ${sessionSeed}
+Session Seed: ${sessionSeed}
 
 Return ONLY valid JSON matching schema.
 Generate exactly ${maxFindings} findings.
-Include realistic exploitation scenarios in threatActorContext.
+Each finding must include realistic exploitation context in threatActorContext.
 `;
 
-  const response = await ai.models.generateContent({
-    model: "gemini-3-pro-preview",
-    contents: prompt,
-    config: {
-      responseMimeType: "application/json",
-      responseSchema: reportSchema,
-      thinkingConfig: { thinkingBudget: 2000 }
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-3-pro-preview",
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: reportSchema,
+        thinkingConfig: { thinkingBudget: 2000 },
+      },
+    });
+
+    if (!response.text) {
+      throw new Error("Empty response from AI model.");
     }
-  });
 
-  if (!response.text) {
-    throw new Error("Empty response from model");
+    return JSON.parse(response.text) as ReconReport;
+  } catch (error: any) {
+    console.error("SurfaceX Engine Error:", error);
+
+    if (
+      error?.message?.toLowerCase().includes("api key") ||
+      error?.message?.toLowerCase().includes("unauthorized")
+    ) {
+      throw new Error("Invalid API key.");
+    }
+
+    throw error;
   }
-
-  return JSON.parse(response.text) as ReconReport;
 };
