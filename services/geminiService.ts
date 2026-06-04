@@ -162,4 +162,9 @@ export const analyzeDomain = async (domain: string, depth: string = 'balanced', 
     }
     throw error;
   }
+<<<<<<< HEAD
+=======
+
+  return JSON.parse(response.text) as ReconReport;
+>>>>>>> 1c7cf3a523a4b5913c37a1e5aa5fedfbf048079d
 };
