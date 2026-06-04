@@ -29,9 +29,15 @@ const ScoreGauge: React.FC<ScoreGaugeProps> = ({ score }) => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="relative w-full h-40 mx-auto flex items-center justify-center">
       {/* Explicitly sized wrapper to prevent Recharts -1 width/height warning. Increased width to prevent cropping. */}
       <div style={{ width: 220, height: 160 }} className="relative">
+=======
+    <div className="relative w-40 h-40 mx-auto flex items-center justify-center">
+      {/* Explicitly sized wrapper to prevent Recharts -1 width/height warning */}
+      <div style={{ width: 160, height: 160 }} className="relative">
+>>>>>>> 1aa9e1e8de0983f6c5f4004aa53d4f5f281c194b
         {/* Glow effect background */}
         <div 
           className="absolute inset-0 rounded-full blur-[20px] opacity-20"
@@ -39,7 +45,11 @@ const ScoreGauge: React.FC<ScoreGaugeProps> = ({ score }) => {
         />
         
         <ResponsiveContainer width="100%" height="100%">
+<<<<<<< HEAD
           <PieChart>
+=======
+          <PieChart width={160} height={160}>
+>>>>>>> 1aa9e1e8de0983f6c5f4004aa53d4f5f281c194b
             <Pie
               data={data}
               cx="50%"

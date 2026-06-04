@@ -83,7 +83,11 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, setCurrentView }
             <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-4">Resources</p>
             <div className="flex flex-col gap-2">
               <a 
+<<<<<<< HEAD
                 href="https://github.com/VectrionX" 
+=======
+                href="https://github.com/SuperMag99" 
+>>>>>>> 1aa9e1e8de0983f6c5f4004aa53d4f5f281c194b
                 target="_blank" 
                 rel="noreferrer"
                 className="flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-500 hover:text-white hover:bg-white/5 transition-all text-sm font-medium"

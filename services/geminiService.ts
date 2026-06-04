@@ -110,9 +110,14 @@ const reportSchema = {
   required: ["domain", "overallScore", "riskLevel", "findings", "subdomains", "attackPaths", "summary", "dimensions", "dnsRecords", "securityHeaders", "techStack"]
 };
 
+<<<<<<< HEAD
 export const analyzeDomain = async (domain: string, depth: string = 'balanced', apiKey?: string): Promise<ReconReport> => {
   const finalApiKey = apiKey || process.env.API_KEY || '';
   const ai = new GoogleGenAI({ apiKey: finalApiKey });
+=======
+export const analyzeDomain = async (domain: string, depth: string = 'balanced'): Promise<ReconReport> => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+>>>>>>> 1aa9e1e8de0983f6c5f4004aa53d4f5f281c194b
   const isDeep = depth === 'deep';
   const isRapid = depth === 'rapid';
   
