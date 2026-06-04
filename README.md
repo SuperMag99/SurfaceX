@@ -4,11 +4,6 @@
 
 > "Fast, explainable exposure visibility — not exploitation."
 
-<<<<<<< HEAD
-=======
-![FootprintX Hero Screenshot](https://github.com/SuperMag99/SurfaceX/blob/main/Screenshots/0.png)
-![FootprintX Hero Screenshot](https://github.com/SuperMag99/SurfaceX/blob/main/Screenshots/2.png)
->>>>>>> 1aa9e1e8de0983f6c5f4004aa53d4f5f281c194b
 ---
 
 ## 🎯 Project Overview
@@ -95,7 +90,6 @@ SurfaceX is for **defensive and authorized use only**. It follows these strict o
 
 ---
 
-<<<<<<< HEAD
 ## 📦 Repository Hygiene
 - Sensitive files (like `.env`) are excluded via `.gitignore`.
 - Findings and samples used for testing are sanitized of PII.
@@ -108,8 +102,6 @@ All trademarks, platform names (e.g., VirusTotal, AbuseIPDB, Cloudflare, Google 
 
 ---
 
-=======
->>>>>>> 1aa9e1e8de0983f6c5f4004aa53d4f5f281c194b
 ## 📄 Disclaimer
 This project is provided **"as is"** without warranty of any kind. The authors and maintainers are not responsible for any misuse, unintended consequences, or damages resulting from the use of this tool. SurfaceX is intended for **defensive cybersecurity purposes only**. Always ensure you have explicit authorization before assessing any target infrastructure.
 
@@ -122,19 +114,8 @@ Features, detection logic, and risk heuristics evolve as the global threat lands
 ---
 
 ## 🧭 Support
-<<<<<<< HEAD
 - **Issues**: Use [GitHub Issues](https://github.com/SuperMag99/surfacex/issues).
 - **Security**: Refer to `SECURITY.md`.
-=======
-- **Issues**: Use [GitHub Issues](https://github.com/SuperMag99/SurfaceX/issues).
-- **Security:** Refer to [SECURITY.md](./SECURITY.md).
-
----
-
-## 🧭 Security and Vulnerabilities
-
-- **Security:** Refer to [SECURITY.md](./SECURITY.md).
->>>>>>> 1aa9e1e8de0983f6c5f4004aa53d4f5f281c194b
 
 ---
 
@@ -145,23 +126,9 @@ If SurfaceX helps your SOC team or security research, consider giving the reposi
 
 ---
 
-<<<<<<< HEAD
 ## 📄 License
 Distributed under the **MIT License**.  
 Copyright (c) 2025 PhishEyeX
-=======
-## License Summary
-
-This project is licensed under a **Non-Commercial Attribution License**. Key points:
-
-1. ✅ **Free to use for personal, educational, and research purposes.**
-2. ✅ **Any modification or derivative work must credit to the author.
-3. ❌ **Commercial use, sale, licensing, or any use intended to generate revenue is strictly prohibited without prior written permission.**
-4. ⚠️ **No warranty**: Use at your own risk.
-5. ⚖️ **Legal protection**: Unauthorized commercial use or failure to credit the author may result in legal action.
-
-For full license details, see the `LICENSE` file. [LICENSE](./LICENSE).
->>>>>>> 1aa9e1e8de0983f6c5f4004aa53d4f5f281c194b
 
 ---
 
