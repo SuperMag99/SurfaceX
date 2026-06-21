@@ -81,15 +81,15 @@ const App: React.FC = () => {
 
   const renderDisclaimerModal = () => (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300">
-      <div className="bg-[#0B0E14] border border-indigo-500/30 rounded-3xl p-8 md:p-10 max-w-lg w-full shadow-[0_0_80px_-15px_rgba(99,102,241,0.2)] relative overflow-hidden animate-in zoom-in-95 duration-500">
+      <div className="bg-[#0B0E14] border border-indigo-500/30 rounded-3xl p-6 md:p-10 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-[0_0_80px_-15px_rgba(99,102,241,0.2)] relative animate-in zoom-in-95 duration-500">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-violet-500"></div>
-        <div className="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 border border-indigo-500/20">
-          <Shield className="text-indigo-400" size={32} />
+        <div className="w-12 h-12 md:w-16 md:h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 border border-indigo-500/20">
+          <Shield className="text-indigo-400 w-6 h-6 md:w-8 md:h-8" />
         </div>
-        <h2 className="text-2xl font-bold text-white mb-4 tracking-tight">Privacy First & Ephemeral Session</h2>
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-4 tracking-tight">Privacy First & Ephemeral Session</h2>
         <div className="space-y-4 text-slate-300 text-sm leading-relaxed mb-8">
           <p>This is the initial version of SurfaceX Intelligence.</p>
-          <div className="bg-[#0F111A] border border-indigo-500/20 p-4 rounded-2xl flex items-start gap-4">
+          <div className="bg-[#0F111A] border border-indigo-500/20 p-4 rounded-2xl flex items-start gap-4 flex-col sm:flex-row">
             <Info className="text-indigo-400 shrink-0 mt-0.5" size={20} />
             <div className="space-y-2">
               <strong className="text-indigo-300 block text-sm">No Data Stored</strong>
@@ -106,7 +106,7 @@ const App: React.FC = () => {
           onClick={() => setShowDisclaimer(false)}
           className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm tracking-wide py-4 rounded-xl transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 active:scale-[0.98]"
         >
-          Close
+          I Understand & Agree
         </button>
       </div>
     </div>
@@ -115,8 +115,8 @@ const App: React.FC = () => {
   const renderSearchHero = () => (
     <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row items-end justify-between gap-6">
-        <div className="space-y-4">
+      <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6">
+        <div className="space-y-4 w-full lg:w-auto">
           <div className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
@@ -124,27 +124,27 @@ const App: React.FC = () => {
             </span>
             <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-400">System Ready - Initial Version</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
-            Attack Surface <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">Intelligence</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+            Attack Surface <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400"><br className="hidden sm:block lg:hidden" />Intelligence</span>
           </h1>
-          <p className="text-lg text-slate-400 max-w-xl font-medium">
+          <p className="text-base md:text-lg text-slate-400 max-w-xl font-medium">
             Map enterprise exposure, cloud leakage, and theoretical attack paths with passive precision.
           </p>
         </div>
         
         {/* Mode Toggle Pills */}
-        <div className="bg-[#0F111A] p-1.5 rounded-2xl border border-white/5 flex gap-1 shadow-2xl">
+        <div className="bg-[#0F111A] p-1.5 rounded-2xl border border-white/5 flex gap-1 shadow-2xl w-full lg:w-auto overflow-x-auto custom-scrollbar">
           <button 
             type="button"
             onClick={() => { setMode('intelligence'); setError(null); }}
-            className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold transition-all ${mode === 'intelligence' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-slate-300'}`}
+            className={`flex-1 lg:flex-none flex justify-center items-center gap-2 px-4 md:px-5 py-3 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${mode === 'intelligence' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' : 'text-slate-500 hover:text-slate-300'}`}
           >
             <Cpu size={14} /> AI INTELLIGENCE
           </button>
           <button 
             type="button"
             onClick={() => { setMode('local'); setError(null); }}
-            className={`flex items-center gap-2 px-5 py-3 rounded-xl text-xs font-bold transition-all ${mode === 'local' ? 'bg-slate-800 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
+            className={`flex-1 lg:flex-none flex justify-center items-center gap-2 px-4 md:px-5 py-3 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${mode === 'local' ? 'bg-slate-800 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
           >
             <Database size={14} /> LOCAL SNAPSHOT
           </button>
@@ -154,28 +154,28 @@ const App: React.FC = () => {
       {/* Main Search Input Card */}
       <div className="bg-[#0B0E14] border border-white/5 rounded-3xl p-1 shadow-2xl relative group overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-        <div className="bg-[#0F111A] rounded-[20px] p-8 md:p-10 relative z-10">
-          <form onSubmit={handleSearch} className="space-y-8">
+        <div className="bg-[#0F111A] rounded-[20px] p-5 sm:p-8 md:p-10 relative z-10">
+          <form onSubmit={handleSearch} className="space-y-6 md:space-y-8">
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Target Asset Domain</label>
               <div className="relative group/input">
-                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                   <Globe className="text-indigo-500 group-focus-within/input:text-indigo-400 transition-colors" size={24} />
+                 <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
+                   <Globe className="text-indigo-500 group-focus-within/input:text-indigo-400 transition-colors w-5 h-5 sm:w-6 sm:h-6" />
                  </div>
                  <input 
                    type="text" 
                    placeholder="e.g. cloud-enterprise.com"
-                   className="w-full bg-[#0B0E14] border border-white/10 rounded-2xl py-6 pl-14 pr-6 text-xl md:text-2xl text-white font-medium placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-inner"
+                   className="w-full bg-[#0B0E14] border border-white/10 rounded-2xl py-4 sm:py-6 pl-10 sm:pl-14 pr-16 sm:pr-20 text-base sm:text-xl md:text-2xl text-white font-medium placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-inner"
                    value={domain}
                    onChange={(e) => setDomain(e.target.value)}
                  />
-                 <div className="absolute inset-y-0 right-3 flex items-center">
+                 <div className="absolute inset-y-0 right-2 sm:right-3 flex items-center">
                     <button 
                       type="submit"
                       disabled={loading}
-                      className="bg-indigo-600 hover:bg-indigo-500 text-white p-3 rounded-xl shadow-lg shadow-indigo-500/30 transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
+                      className="bg-indigo-600 hover:bg-indigo-500 text-white p-2.5 sm:p-3 rounded-xl shadow-lg shadow-indigo-500/30 transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 flex justify-center items-center"
                     >
-                      {loading ? <Loader2 className="animate-spin" size={24} /> : <Search size={24} />}
+                      {loading ? <Loader2 className="animate-spin w-5 h-5 sm:w-6 sm:h-6" /> : <Search className="w-5 h-5 sm:w-6 sm:h-6" />}
                     </button>
                  </div>
               </div>
@@ -186,13 +186,13 @@ const App: React.FC = () => {
               <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Gemini API Key</label>
                 <div className="relative group/key">
-                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                     <Settings className="text-slate-600 group-focus-within/key:text-indigo-400 transition-colors" size={20} />
+                   <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
+                     <Settings className="text-slate-600 group-focus-within/key:text-indigo-400 transition-colors w-4 h-4 sm:w-5 sm:h-5" />
                    </div>
                    <input 
                      type="password" 
                      placeholder="AI Key (Required for AI Analysis)"
-                     className="w-full bg-[#0B0E14] border border-white/5 rounded-2xl py-4 pl-12 pr-6 text-sm text-white font-medium placeholder-slate-700 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-inner"
+                     className="w-full bg-[#0B0E14] border border-white/5 rounded-2xl py-3 sm:py-4 pl-10 sm:pl-12 pr-6 text-sm text-white font-medium placeholder-slate-700 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all shadow-inner"
                      value={apiKey}
                      onChange={(e) => setApiKey(e.target.value)}
                    />
@@ -201,7 +201,7 @@ const App: React.FC = () => {
             )}
 
             {/* Filters Row */}
-            <div className="flex flex-wrap items-center gap-6 pt-2">
+            <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 sm:gap-6 pt-2">
               {mode === 'intelligence' && (
                 <div className="flex items-center gap-3 bg-[#0B0E14] border border-white/5 px-4 py-2.5 rounded-xl">
                   <Settings size={14} className="text-slate-500" />
@@ -219,12 +219,12 @@ const App: React.FC = () => {
                 </div>
               )}
               
-              <div className="flex-1" />
+              <div className="flex-1 hidden sm:block" />
 
-              <div className="flex gap-6 text-xs font-medium text-slate-500">
-                <span className="flex items-center gap-2"><Cloud size={14} className="text-indigo-500/50" /> Cloud Visibility</span>
-                <span className="flex items-center gap-2"><Share2 size={14} className="text-indigo-500/50" /> Attack Paths</span>
-                <span className="flex items-center gap-2"><ShieldCheck size={14} className="text-indigo-500/50" /> Compliance</span>
+              <div className="flex flex-wrap gap-4 sm:gap-6 text-xs font-medium text-slate-500">
+                <span className="flex items-center gap-1.5 sm:gap-2"><Cloud size={14} className="text-indigo-500/50" /> <span className="hidden sm:inline">Cloud Visibility</span><span className="sm:hidden">Cloud</span></span>
+                <span className="flex items-center gap-1.5 sm:gap-2"><Share2 size={14} className="text-indigo-500/50" /> <span className="hidden sm:inline">Attack Paths</span><span className="sm:hidden">Paths</span></span>
+                <span className="flex items-center gap-1.5 sm:gap-2"><ShieldCheck size={14} className="text-indigo-500/50" /> Compliance</span>
               </div>
             </div>
           </form>
@@ -368,15 +368,15 @@ const App: React.FC = () => {
       )}
       
       {report && (
-        <div className="fixed bottom-8 right-8 z-50">
+        <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50">
           <button 
             type="button"
             onClick={() => { setReport(null); setDomain(''); setCurrentView('home'); }}
-            className="group flex items-center gap-3 bg-[#0B0E14]/90 backdrop-blur-xl border border-white/10 hover:border-indigo-500/50 text-slate-300 hover:text-white px-6 py-4 rounded-2xl shadow-2xl transition-all hover:-translate-y-1"
+            className="group flex items-center gap-2 md:gap-3 bg-[#0B0E14]/90 backdrop-blur-xl border border-white/10 hover:border-indigo-500/50 text-slate-300 hover:text-white px-4 md:px-6 py-3 md:py-4 rounded-full md:rounded-2xl shadow-[0_0_40px_-10px_rgba(0,0,0,0.8)] md:shadow-2xl transition-all hover:-translate-y-1"
           >
             <Search size={18} />
-            <span className="text-xs font-bold uppercase tracking-widest">New Scan</span>
-            <kbd className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/10 font-bold text-slate-500 group-hover:text-slate-300">Esc</kbd>
+            <span className="text-xs font-bold uppercase tracking-widest hidden sm:block">New Scan</span>
+            <kbd className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/10 font-bold text-slate-500 group-hover:text-slate-300 hidden md:block">Esc</kbd>
           </button>
         </div>
       )}

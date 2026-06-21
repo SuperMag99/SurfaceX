@@ -134,7 +134,7 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
       {/* 1. Risk Score Card (Top Left) */}
-      <div className="lg:col-span-1 bg-[#0F111A] border border-white/5 rounded-3xl p-6 relative overflow-hidden flex flex-col justify-between">
+      <div className="col-span-1 bg-[#0F111A] border border-white/5 rounded-3xl p-6 relative overflow-hidden flex flex-col justify-between">
         <div className="flex justify-between items-start mb-4">
           <div>
             <h3 className="text-white font-bold text-lg">Risk Posture</h3>
@@ -158,7 +158,7 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
       </div>
 
       {/* 2. Executive Summary (Top Middle - Wide) */}
-      <div className="lg:col-span-2 bg-[#0F111A] border border-white/5 rounded-3xl p-8 relative overflow-hidden group">
+      <div className="col-span-1 lg:col-span-2 bg-[#0F111A] border border-white/5 rounded-3xl p-6 md:p-8 relative overflow-hidden group">
         {/* Decorative Background Glow */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[100px] rounded-full group-hover:bg-indigo-500/20 transition-all" />
         
@@ -182,18 +182,18 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
           <div className="mt-8 pt-6 border-t border-white/5 flex gap-12">
              <div>
                <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-1">Impact</span>
-               <span className="text-xl font-bold text-white">{report.findings.length} Findings</span>
+               <span className="text-xl font-bold text-white">{report.findings.length} <span className="hidden sm:inline">Findings</span></span>
              </div>
              <div>
                <span className="block text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-1">Assets</span>
-               <span className="text-xl font-bold text-white">{report.subdomains.length} Nodes</span>
+               <span className="text-xl font-bold text-white">{report.subdomains.length} <span className="hidden sm:inline">Nodes</span></span>
              </div>
           </div>
         </div>
       </div>
 
       {/* 3. Exposure Dimensions Chart (Middle Left) */}
-      <div className="lg:col-span-2 bg-[#0F111A] border border-white/5 rounded-3xl p-6">
+      <div className="col-span-1 lg:col-span-2 bg-[#0F111A] border border-white/5 rounded-3xl p-6">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-white font-bold text-lg">Exposure Trend</h3>
           <div className="flex gap-2">
@@ -224,7 +224,7 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
       </div>
 
       {/* 4. Asset Distribution (Middle Right) */}
-      <div className="lg:col-span-1 bg-[#0F111A] border border-white/5 rounded-3xl p-6">
+      <div className="col-span-1 bg-[#0F111A] border border-white/5 rounded-3xl p-6">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-white font-bold text-lg">Assets</h3>
           <button className="p-2 hover:bg-white/5 rounded-lg text-slate-500 transition-colors"><MoreHorizontal size={16} /></button>
@@ -250,7 +250,7 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
       </div>
 
       {/* 5. High Priority Findings (Bottom Full Width) */}
-      <div className="lg:col-span-3 bg-[#0F111A] border border-white/5 rounded-3xl p-6">
+      <div className="col-span-1 lg:col-span-3 bg-[#0F111A] border border-white/5 rounded-3xl p-6">
         <div className="flex justify-between items-center mb-6">
            <div>
              <h3 className="text-white font-bold text-lg">Critical Findings</h3>
@@ -390,7 +390,7 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
   // Reusing DNS and Compliance renderers but updating containers
   const renderDNS = () => (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in duration-500">
-      <div className="lg:col-span-2 bg-[#0F111A] border border-white/5 rounded-3xl overflow-hidden">
+      <div className="col-span-1 lg:col-span-2 bg-[#0F111A] border border-white/5 rounded-3xl overflow-hidden">
         <div className="p-6 border-b border-white/5">
           <h3 className="text-white font-bold text-lg flex items-center gap-2">
             <Search size={18} className="text-indigo-500" /> DNS Zone
@@ -436,17 +436,17 @@ const Dashboard: React.FC<DashboardProps> = ({ report }) => {
     <div className="space-y-8" ref={reportRef}>
       {/* Header and Controls */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 print:hidden">
-        <div>
-           <h1 className="text-3xl font-bold text-white tracking-tight mb-1">Target Overview</h1>
-           <p className="text-sm text-slate-500 font-medium">Domain: <span className="text-indigo-400 font-mono">{report.domain}</span></p>
+        <div className="truncate w-full lg:w-auto">
+           <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-1">Target Overview</h1>
+           <p className="text-sm text-slate-500 font-medium truncate">Domain: <span className="text-indigo-400 font-mono">{report.domain}</span></p>
         </div>
         
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto overflow-x-auto">
           <Tabs />
           <div className="h-8 w-px bg-white/10 hidden md:block mx-2" />
           <button 
             onClick={handleExportPDF}
-            className="p-2.5 bg-[#0F111A] border border-white/10 rounded-xl text-slate-400 hover:text-white hover:border-indigo-500/50 transition-all"
+            className="p-2.5 bg-[#0F111A] border border-white/10 rounded-xl text-slate-400 hover:text-white hover:border-indigo-500/50 transition-all flex items-center justify-center min-w-[40px]"
           >
             <Printer size={18} />
           </button>

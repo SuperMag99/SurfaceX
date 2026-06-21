@@ -1,5 +1,6 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
-import { ReconReport } from "../types";
+import { ReconReport, RiskLevel } from "../types";
 
 const reportSchema = {
   type: Type.OBJECT,
@@ -9,7 +10,6 @@ const reportSchema = {
     overallScore: { type: Type.NUMBER },
     riskLevel: { type: Type.STRING },
     summary: { type: Type.STRING },
-
     dimensions: {
       type: Type.OBJECT,
       properties: {
@@ -18,14 +18,8 @@ const reportSchema = {
         dataExposure: { type: Type.NUMBER },
         brandReputation: { type: Type.NUMBER },
       },
-      required: [
-        "initialAccess",
-        "lateralMovement",
-        "dataExposure",
-        "brandReputation",
-      ],
+      required: ["initialAccess", "lateralMovement", "dataExposure", "brandReputation"],
     },
-
     findings: {
       type: Type.ARRAY,
       items: {
@@ -43,24 +37,22 @@ const reportSchema = {
           impact: { type: Type.STRING },
           recommendation: { type: Type.STRING },
           threatActorContext: { type: Type.STRING },
+          compliance: {
+            type: Type.ARRAY,
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                framework: { type: Type.STRING },
+                control: { type: Type.STRING },
+                description: { type: Type.STRING },
+              },
+              required: ["framework", "control", "description"],
+            }
+          }
         },
-        required: [
-          "id",
-          "module",
-          "category",
-          "title",
-          "description",
-          "severity",
-          "confidence",
-          "evidence",
-          "affectedAsset",
-          "impact",
-          "recommendation",
-          "threatActorContext",
-        ],
-      },
+        required: ["id", "module", "category", "title", "description", "severity", "confidence", "evidence", "affectedAsset", "impact", "recommendation", "threatActorContext"]
+      }
     },
-
     subdomains: {
       type: Type.ARRAY,
       items: {
@@ -73,10 +65,9 @@ const reportSchema = {
           tags: { type: Type.ARRAY, items: { type: Type.STRING } },
           provider: { type: Type.STRING },
         },
-        required: ["name", "ip", "category", "ports", "tags"],
-      },
+        required: ["name", "ip", "category", "ports", "tags"]
+      }
     },
-
     attackPaths: {
       type: Type.ARRAY,
       items: {
@@ -88,10 +79,9 @@ const reportSchema = {
           riskLevel: { type: Type.STRING },
           likelihood: { type: Type.STRING },
         },
-        required: ["id", "name", "steps", "riskLevel", "likelihood"],
-      },
+        required: ["id", "name", "steps", "riskLevel", "likelihood"]
+      }
     },
-
     dnsRecords: {
       type: Type.ARRAY,
       items: {
@@ -100,12 +90,10 @@ const reportSchema = {
           type: { type: Type.STRING },
           value: { type: Type.STRING },
         },
-        required: ["type", "value"],
-      },
+        required: ["type", "value"]
+      }
     },
-
     techStack: { type: Type.ARRAY, items: { type: Type.STRING } },
-
     securityHeaders: {
       type: Type.ARRAY,
       items: {
@@ -115,54 +103,35 @@ const reportSchema = {
           present: { type: Type.BOOLEAN },
           value: { type: Type.STRING },
         },
-        required: ["name", "present"],
-      },
+        required: ["name", "present"]
+      }
     },
   },
-
-  required: [
-    "domain",
-    "overallScore",
-    "riskLevel",
-    "findings",
-    "subdomains",
-    "attackPaths",
-    "summary",
-    "dimensions",
-    "dnsRecords",
-    "securityHeaders",
-    "techStack",
-  ],
+  required: ["domain", "overallScore", "riskLevel", "findings", "subdomains", "attackPaths", "summary", "dimensions", "dnsRecords", "securityHeaders", "techStack"]
 };
 
-export const analyzeDomain = async (
-  domain: string,
-  depth: string = "balanced",
-  apiKey?: string
-): Promise<ReconReport> => {
-  // ✅ HARD FAIL if no API key (no hidden env fallback)
-  if (!apiKey) {
-    throw new Error("Missing API key. Please provide it in the UI.");
-  }
-
-  const ai = new GoogleGenAI({ apiKey });
-
-  const isDeep = depth === "deep";
-  const isRapid = depth === "rapid";
-  const maxFindings = isDeep ? 6 : isRapid ? 3 : 5;
-
+export const analyzeDomain = async (domain: string, depth: string = 'balanced', apiKey?: string): Promise<ReconReport> => {
+  const finalApiKey = apiKey || process.env.API_KEY || '';
+  const ai = new GoogleGenAI({ apiKey: finalApiKey });
+  const isDeep = depth === 'deep';
+  const isRapid = depth === 'rapid';
+  
+  const maxFindings = isDeep ? 6 : (isRapid ? 3 : 5);
   const sessionSeed = Math.random().toString(36).substring(7);
 
   const prompt = `
-Act as a Senior Attack Surface Engineer.
+    Act as a Senior Attack Surface Engineer for SurfaceX. Generate a unique, high-fidelity intelligence report for the target domain: ${domain}.
+    Analyze passive OSINT indicators, metadata, and common exposure patterns.
+    
+    Session Seed: ${sessionSeed}.
 
-Target: ${domain}
-Session Seed: ${sessionSeed}
-
-Return ONLY valid JSON matching schema.
-Generate exactly ${maxFindings} findings.
-Each finding must include realistic exploitation context in threatActorContext.
-`;
+    REQUIREMENTS:
+    - Return valid JSON matching the specified schema.
+    - Provide EXACTLY ${maxFindings} diverse and realistic findings.
+    - Each finding must include a 'threatActorContext' which is a specific, real-world Exploitation Scenario.
+    - 'evidence' should mimic real technical tool outputs.
+    - Ensure 'overallScore' reflects the severity of the findings (0-100).
+  `;
 
   try {
     const response = await ai.models.generateContent({
@@ -175,21 +144,22 @@ Each finding must include realistic exploitation context in threatActorContext.
       },
     });
 
-    if (!response.text) {
-      throw new Error("Empty response from AI model.");
+    const text = response.text;
+    if (!text) {
+      throw new Error("The intelligence engine returned an empty response.");
     }
 
-    return JSON.parse(response.text) as ReconReport;
+    try {
+      return JSON.parse(text) as ReconReport;
+    } catch (parseError) {
+      console.error("Failed to parse Gemini response:", text);
+      throw new Error("The intelligence engine returned a malformed report.");
+    }
   } catch (error: any) {
     console.error("SurfaceX Engine Error:", error);
-
-    if (
-      error?.message?.toLowerCase().includes("api key") ||
-      error?.message?.toLowerCase().includes("unauthorized")
-    ) {
-      throw new Error("Invalid API key.");
+    if (error.message?.includes("API_KEY") || error.message?.includes("unauthorized") || error.message?.includes("API key")) {
+      throw new Error("Invalid or missing API Key. Check your configuration.");
     }
-
     throw error;
   }
 };
